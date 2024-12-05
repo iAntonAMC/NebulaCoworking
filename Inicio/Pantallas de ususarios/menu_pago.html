@@ -156,6 +156,77 @@
       margin-top: 30px;
       color: #28a745;
     }
+
+    /* Chatbot */
+    .chatbot-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #4C956C;
+      border-radius: 50%;
+      padding: 20px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chatbot-modal {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      display: none;
+    }
+
+    .chatbot-modal.active {
+      display: block;
+    }
+
+    .chatbot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .chatbot-header button {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .chatbot-messages {
+      height: 270px;
+      overflow-y: scroll;
+      margin-bottom: 10px;
+    }
+
+    .chatbot-input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .chatbot-send-button {
+      padding: 10px 20px;
+      background-color: #4C956C;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -249,7 +320,72 @@
     <p>&copy; 2024 Nebula Coworking. Todos los derechos reservados.</p>
   </div>
 
+  <!-- Botón para abrir el chatbot -->
+  <div class="chatbot-button" onclick="toggleChatbot()">
+    <i class="fas fa-comment"></i>
+  </div>
+
+  <!-- Modal del Chatbot -->
+  <div class="chatbot-modal" id="chatbotModal">
+    <div class="chatbot-header">
+      <h3>ChatBot</h3>
+      <button onclick="toggleChatbot()">X</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <!-- Los mensajes irán aquí -->
+    </div>
+    <input type="text" id="chatbotInput" class="chatbot-input" placeholder="Escribe tu mensaje...">
+    <button class="chatbot-send-button" onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+    let chatbotOpen = false;
+
+    function toggleChatbot() {
+      chatbotOpen = !chatbotOpen;
+      const chatbotModal = document.getElementById('chatbotModal');
+      if (chatbotOpen) {
+        chatbotModal.classList.add('active');
+      } else {
+        chatbotModal.classList.remove('active');
+      }
+    }
+
+    async function sendMessage() {
+      const userInput = document.getElementById('chatbotInput').value;
+      if (userInput.trim() === "") return;
+
+      const messageContainer = document.getElementById('chatbotMessages');
+      const userMessage = document.createElement('div');
+      userMessage.textContent = `Tú: ${userInput}`;
+      messageContainer.appendChild(userMessage);
+
+      // Simula la respuesta del chatbot
+      try {
+        const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+          messages: [{ role: "user", content: userInput }],
+          model: "gemma2-9b-it",
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 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',
+          }
+        });
+
+        const botMessage = response.data.choices[0].message.content;
+        const botMessageElement = document.createElement('div');
+        botMessageElement.textContent = `Bot: ${botMessage}`;
+        messageContainer.appendChild(botMessageElement);
+      } catch (error) {
+        const errorMessage = document.createElement('div');
+        errorMessage.textContent = "Bot: Lo siento, hubo un error. Por favor, intenta nuevamente.";
+        messageContainer.appendChild(errorMessage);
+      }
+
+      document.getElementById('chatbotInput').value = "";
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
     function processPayment() {
       // Mostrar la animación de carga
       document.getElementById('loading').style.display = 'block';
