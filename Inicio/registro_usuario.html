@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con transparencia */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    position: relative; /* Necesario para posicionar elementos dentro del contenedor */
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-container input {
+    width: calc(100% - 30px);
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+button[type="submit"] {
+    background-color: #476D77;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #A8A7A5;
+}
+
+.forgot-password {
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    color: #476D77;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #A8A7A5;
+}
+
+/* Estilo para la flecha de regreso */
+.back-to-register {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.back-to-register a {
+    font-size: 30px;
+    color: #8AA39A;
+    text-decoration: none;
+}
+
+.back-to-register a:hover {
+    color: #A8A7A5;
+}
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Botón de regreso -->
+        <div class="back-to-register">
+            <a href="iniciar_sesion.html">&#8592;</a>
+        </div>
+        <h2>Registro</h2>
+        <form action="registro.php" method="POST">
+            <div class="input-container">
+                <input type="text" id="nombre" name="nombre" maxlength="50" placeholder="Nombre" required>
+            </div>
+            <div class="input-container">
+                <input type="text" id="primer_apellido" name="primer_apellido" maxlength="50" placeholder="Primer Apellido" required>
+            </div>
+            <div class="input-container">
+                <input type="text" id="segundo_apellido" name="segundo_apellido" maxlength="50" placeholder="Segundo Apellido" required>
+            </div>
+            <div class="input-container">
+                <input type="email" id="email" name="email" maxlength="50" placeholder="Correo electrónico" required>
+            </div>
+            <div class="input-container">
+                <input type="password" id="password" name="password" maxlength="16" placeholder="Contraseña" required>
+            </div>
+            <button type="submit">Registrar</button>
+        </form>
+        <div class="forgot-password">
+            <a href="iniciar_sesion.html">¿Ya tienes cuenta? Inicia sesión</a>
+        </div>
+    </div>
+</body>
+</html>

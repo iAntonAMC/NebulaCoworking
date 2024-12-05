@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .recovery-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .recovery-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-container input {
+            width: calc(100% - 30px);
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-container input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button[type="submit"] {
+            background-color: #476D77;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #A8A7A5;
+        }
+
+        .back-to-login {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .back-to-login a {
+            font-size: 30px;
+            color: #476D77;
+            text-decoration: none;
+        }
+
+        .back-to-login a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="recovery-container">
+        <div class="back-to-login">
+            <a href="iniciar_sesion.html">&#8592;</a>
+        </div>
+        <h2>Recuperar Contraseña</h2>
+        <form action="procesar_recuperacion.php" method="POST">
+            <div class="input-container">
+                <input type="email" id="email" name="email" maxlength="50" placeholder="Ingresa tu correo electrónico" required>
+            </div>
+            <button type="submit">Enviar Código</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nebula.org</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- DaisyUI CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.50.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Estilos personalizados */
+        .btn-primary {
+            background-color: #476D77;
+            color: #F8F7F5;
+            border-color: #F8F7F5;
+        }
+
+        .btn-primary:hover {
+            background-color: #A8A7A5;
+            color: #ffffff;
+            border-color: #476D77;
+        }
+
+        .text-primary {
+            color: #476D77;
+        }
+
+        .bg-primary {
+            background-color: #476D77;
+        }
+
+        .highlight-on-hover {
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-on-hover:hover {
+            transform: scale(1.05);
+        }
+
+        .border-hover-color {
+            border-color: gray;
+        }
+
+        .border-hover-color:hover {
+            border-color: #A8A7A5;
+        }
+
+        i {
+            color: white;
+        }
+
+        @media (max-width: 640px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <header class="absolute inset-x-0 top-0 z-50">
+        <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+          <div class="flex lg:flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Your Company</span>
+              <img class="h-20 w-20 mobile-hide" src="logo_principal.png" alt="">
+            </a>
+          </div>
+          <div class="flex lg:hidden">
+            <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+              <span class="sr-only">Open main menu</span>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden lg:flex lg:gap-x-12">
+            <a href="#" class="text-sm/6 font-semibold text-white">Producto</a>
+            <a href="#" class="text-sm/6 font-semibold text-white">Caracteristicas</a>
+            <a href="#" class="text-sm/6 font-semibold text-white">Preguntas frecuentes</a>
+            <a href="#" class="text-sm/6 font-semibold text-white">Testimonios</a>
+          </div>
+          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="iniciar_sesion.html" class="text-sm/6 font-semibold text-white">Inicia sesion <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </nav>
+      </header>
+    <div class="relative overflow-hidden bg-brown-800 py-24 sm:py-32">
+        <video class="absolute inset-0 h-full w-full object-cover opacity-80" autoplay muted loop>
+            <source src="escena.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+        <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="max-w-2xl">
+                <br>
+                <br>
+                <h1 class="text-5xl font-bold text-primary-content sm:text-6xl">Transformamos espacios, inspiramos trabajo.</h1>
+                <br>
+                <br>
+                <p class="mt-8 text-lg text-gray-200">
+                    <b>En Nebula, convertimos edificios abandonados en espacios de co-working únicos y sostenibles. Utilizamos materiales reciclados para restaurar y revitalizar estructuras, creando oficinas modernas y funcionales que fomentan la creatividad y la colaboración. Ya sea que necesites un lugar para tu equipo o un despacho personal, en Nebula encontrarás un ambiente diseñado para impulsar tu productividad mientras cuidas del planeta.</p>>
+                </p>
+                <br>
+                <br>
+            </div>
+            <div class="mt-10 grid grid-cols-1 gap-4 text-gray-100 sm:grid-cols-2 md:flex lg:gap-x-10">
+                <a href="#beneficios" class="btn btn-primary">Descubre los beneficios</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Beneficios Section -->
+    <div class="bg-white py-24 sm:py-32 highlight-on-hover">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="text-center mx-auto max-w-2xl">
+                <br>
+                <h2 class="text-base font-semibold text-primary">Siente la libertad</h2>
+                <br>
+                <p class="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">¿Por qué elegir Nebula?</p>
+                <br>
+                <p class="mt-6 text-lg text-gray-600">El equilibrio perfecto entre funcionalidad, confort y sostenibilidad. Cada espacio está diseñado para inspirar creatividad, promover la colaboración y garantizar un ambiente productivo.</p>
+            </div>
+            <div class="mt-16 mx-auto max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+                <dl class="grid grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-y-16">
+                    <div class="relative pl-16">
+                        <dt class="text-lg font-semibold text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            Diseño moderno y minimalista.
+                        </dt>
+                        <dd class="mt-2 text-base text-gray-600">Nuestro sistema utiliza barro natural para regular la temperatura, lo que reduce el consumo energético y las emisiones de carbono.</dd>
+                    </div>
+                    <div class="relative pl-16">
+                        <dt class="text-lg font-semibold text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            Espacios personalizables.
+                        </dt>
+                        <dd class="mt-2 text-base text-gray-600">Hecho a mano con materiales reciclables, contribuyendo a la sostenibilidad y a la conservación del medio ambiente.</dd>
+                    </div>
+                    <div class="relative pl-16">
+                        <dt class="text-lg font-semibold text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                            Zonas comunes vibrantes.
+                        </dt>
+                        <dd class="mt-2 text-base text-gray-600">Diseñado para ser fácil de limpiar y mantener, asegurando su eficiencia a largo plazo.</dd>
+                    </div>
+                    <div class="relative pl-16">
+                        <dt class="text-lg font-semibold text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            Accesibilidad y comodidad.
+                        </dt>
+                        <dd class="mt-2 text-base text-gray-600">Ofrece un enfriamiento efectivo incluso en los días más calurosos, manteniendo un ambiente agradable.</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preguntas Frecuentes Section -->
+    <section class="bg-white py-24 sm:py-32">
+        <div class="container mx-auto px-6 lg:px-8 text-center">
+            <h1 class="text-2xl font-semibold text-gray-800 lg:text-3xl dark:text-white">Preguntas Frecuentes</h1>
+            <div class="grid grid-cols-1 gap-8 mt-8 lg:mt-16 md:grid-cols-2 xl:grid-cols-3">
+                <div>
+                    <div class="inline-block p-2 text-white bg-primary rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900">¿Qué incluye la renta de un espacio en Nebula?</h3>
+                    <p class="mt-2 text-base text-gray-600">Tu renta incluye acceso a un espacio de trabajo totalmente equipado con Wi-Fi de alta velocidad, salas de reuniones, áreas comunes, café ilimitado y servicios básicos como limpieza y mantenimiento.</p>
+                </div>
+                <div>
+                    <div class="inline-block p-2 text-white bg-primary rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900">¿Puedo rentar un espacio por días o semanas en lugar de meses?</h3>
+                    <p class="mt-2 text-base text-gray-600">¡Claro! En Nebula ofrecemos planes flexibles que se adaptan a tus necesidades, ya sea por día, semana o mes.</p>
+                </div>
+                <div>
+                    <div class="inline-block p-2 text-white bg-primary rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900">¿Cómo contribuye Nebula al medio ambiente?</h3>
+                    <p class="mt-2 text-base text-gray-600">Restauramos edificios abandonados utilizando materiales reciclados, implementamos iluminación LED de bajo consumo y promovemos prácticas sostenibles como el reciclaje y la reducción de residuos en nuestras oficinas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
