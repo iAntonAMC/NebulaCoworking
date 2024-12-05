@@ -4,12 +4,25 @@ from pydantic import BaseModel
 from pydantic import EmailStr
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 # Model Imports
 from models.chats import ChatByID, create_chat, create_message, get_messages_by_chat_id
 from models.register import registro_usuario, login_usuario
 
 
 app = FastAPI()
+
+# Configuración de CORS
+origins = [
+    '*'
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 ### MODELOS BASE MODEL PARA USUARIOS ###

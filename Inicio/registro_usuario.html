@@ -100,36 +100,125 @@ button[type="submit"]:hover {
     color: #A8A7A5;
 }
 
+.input-container select {
+    width: calc(100%); /* Igual que los inputs de texto */
+    padding: 12px 15px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente consistente */
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Texto oscuro */
+    appearance: none; /* Quita el estilo predeterminado del navegador */
+    transition: border-color 0.3s ease; /* Transición suave al enfoque */
+    cursor: pointer; /* Indica que es un elemento interactivo */
+}
+
+.input-container select:focus {
+    outline: none; /* Quita el borde azul predeterminado */
+    border-color: #4CAF50; /* Cambia el color del borde al enfocarse */
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5); /* Resalta con sombra verde */
+}
+
+.input-container select option {
+    color: #333; /* Asegura que las opciones tengan un texto oscuro */
+}
+
+.input-container select option:disabled {
+    color: #aaa; /* Las opciones deshabilitadas se ven atenuadas */
+}
+
+
     </style>
 </head>
 <body>
     <div class="login-container">
-        <!-- Botón de regreso -->
         <div class="back-to-register">
             <a href="iniciar_sesion.html">&#8592;</a>
         </div>
         <h2>Registro</h2>
-        <form action="registro.php" method="POST">
+        <form id="registroForm">
             <div class="input-container">
                 <input type="text" id="nombre" name="nombre" maxlength="50" placeholder="Nombre" required>
             </div>
             <div class="input-container">
-                <input type="text" id="primer_apellido" name="primer_apellido" maxlength="50" placeholder="Primer Apellido" required>
+                <input type="email" id="correo" name="correo" maxlength="50" placeholder="Correo electrónico" required>
             </div>
             <div class="input-container">
-                <input type="text" id="segundo_apellido" name="segundo_apellido" maxlength="50" placeholder="Segundo Apellido" required>
+                <input type="password" id="contraseña" name="contraseña" maxlength="16" placeholder="Contraseña" required>
             </div>
             <div class="input-container">
-                <input type="email" id="email" name="email" maxlength="50" placeholder="Correo electrónico" required>
+                <input type="password" id="confirm-password" name="confirm_password" maxlength="16" placeholder="Confirmar Contraseña" required>
             </div>
             <div class="input-container">
-                <input type="password" id="password" name="password" maxlength="16" placeholder="Contraseña" required>
+                <select id="tipo_usuario" name="tipo_usuario" required>
+                    <option value="" disabled selected>Selecciona el tipo de usuario</option>
+                    <option value="coworker">Coworker</option>
+                    <option value="propietario">Propietario</option>
+                </select>
             </div>
+            <!-- Campo oculto para enviar id_empresa -->
+            <input type="hidden" id="id_empresa" name="id_empresa" value="0">
             <button type="submit">Registrar</button>
         </form>
         <div class="forgot-password">
             <a href="iniciar_sesion.html">¿Ya tienes cuenta? Inicia sesión</a>
         </div>
     </div>
+    <script>
+        // Seleccionamos el formulario
+        const form = document.getElementById('registroForm');
+
+        // Agregamos un evento para manejar el envío del formulario
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Evitamos el comportamiento por defecto (recargar la página)
+
+            // Obtenemos los valores del formulario
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contraseña = document.getElementById('contraseña').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const tipoUsuario = document.getElementById('tipo_usuario').value;
+            const idEmpresa = document.getElementById('id_empresa').value;
+
+            // Validamos que las contraseñas coincidan
+            if (contraseña !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            // Creamos el objeto con los datos a enviar
+            const data = {
+                nombre: nombre,
+                correo: correo,
+                contraseña: contraseña,
+                tipo_usuario: tipoUsuario,
+                id_empresa: parseInt(idEmpresa)
+            };
+
+            try {
+                // Realizamos la solicitud a la API
+                const response = await fetch('http://127.0.0.1:8000/registro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                // Verificamos la respuesta
+                if (response.ok) {
+                    alert('Registro exitoso');
+                    window.location.href = 'iniciar_sesion.html'; // Redirigir al login
+                } else {
+                    alert(`Error en el registro: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+                alert('Hubo un error al procesar la solicitud.');
+            }
+        });
+    </script>
 </body>
 </html>

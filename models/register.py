@@ -7,9 +7,8 @@ import bcrypt
 
 
 # SUPABASE CONFIG
-url: str = "https://eegpspgminmhrajbujkg.supabase.co/"
-key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlZ3BzcGdtaW5taHJhamJ1amtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNzAwOTgsImV4cCI6MjA0ODk0NjA5OH0.XBDFsIJtYEoHjrjMbjqLSylsxyCBgmYFtkVL0GKemr0"
-
+url: str = "https://wuqrtilnoayfpgtmsyrc.supabase.co/"
+key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1cXJ0aWxub2F5ZnBndG1zeXJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzMzc1MTEsImV4cCI6MjA0ODkxMzUxMX0.AjLa7LU76hCLAMiwLmLVta58b0lP066mkhf7NPzFXbc"
 # Crear cliente de Supabase
 supabase: Client = create_client(url, key, 
     options=ClientOptions(
@@ -37,6 +36,9 @@ def registro_usuario(nombre: str, correo: EmailStr, contraseña: str, tipo_usuar
 
         # Encriptar la contraseña
         contraseña_encriptada = encriptar_contraseña(contraseña)
+
+        # Verificar si el 'id_empresa' es 0 o None
+        id_empresa = None if id_empresa in (None, 0) else id_empresa
 
         # Insertar el nuevo usuario en la base de datos
         response = supabase.table('usuarios').insert({
