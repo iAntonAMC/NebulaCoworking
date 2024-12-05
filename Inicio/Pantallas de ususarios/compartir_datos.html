@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula Drive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .top-bar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .top-bar button:hover {
+            background-color: #45a049;
+        }
+
+        .drive-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: start;
+        }
+
+        .folder, .file {
+            background-color: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .folder:hover, .file:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .folder i, .file i {
+            font-size: 36px;
+            color: #4CAF50;
+        }
+
+        .folder .folder-name, .file .file-name {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .folder .file-name {
+            font-size: 12px;
+        }
+
+        .folder {
+            background-color: #e1f7d5;
+        }
+
+        .file {
+            background-color: #f4f4f9;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Estilo del Modal (ventana emergente) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+        }
+
+        .modal img, .modal iframe {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .modal .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 35px;
+        }
+
+        .modal .close:hover,
+        .modal .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Campo para editar el nombre */
+        .edit-name {
+            display: inline-block;
+            background-color: transparent;
+            border: none;
+            text-align: center;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .edit-name:focus {
+            outline: none;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        /* Drag and Drop */
+        .drop-zone {
+            border: 2px dashed #4CAF50;
+            border-radius: 8px;
+            padding: 40px;
+            margin-top: 30px;
+            text-align: center;
+            color: #4CAF50;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .drop-zone.active {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Nebula Drive</h1>
+
+    <!-- Barra superior con botones -->
+    <div class="top-bar">
+        <button id="create-folder">Crear Carpeta</button>
+        <button id="upload-file">Subir Archivo</button>
+    </div>
+
+    <!-- Contenido de archivos y carpetas -->
+    <div class="drive-content" id="drive-content">
+        <!-- El contenido se genera dinámicamente aquí -->
+    </div>
+
+    <!-- Zona para arrastrar y soltar archivos -->
+    <div class="drop-zone" id="drop-zone">
+        Arrastra tus archivos aquí
+    </div>
+</div>
+
+<!-- Modal para vista previa de archivos -->
+<div id="file-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modal-body">
+            <!-- Aquí se cargará la vista previa -->
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Nebula Drive. Todos los derechos reservados.</p>
+</div>
+
+<script>
+    const createFolderButton = document.getElementById('create-folder');
+    const uploadFileButton = document.getElementById('upload-file');
+    const driveContent = document.getElementById('drive-content');
+    const dropZone = document.getElementById('drop-zone');
+    const modal = document.getElementById('file-modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeModal = document.querySelector('.close');
+
+    // Función para crear carpeta
+    createFolderButton.addEventListener('click', () => {
+        const folder = document.createElement('div');
+        folder.classList.add('folder');
+        folder.innerHTML = `
+            <i class="fas fa-folder"></i>
+            <input class="edit-name" value="Nueva Carpeta" />
+        `;
+        driveContent.appendChild(folder);
+    });
+
+    // Función para subir archivo
+    uploadFileButton.addEventListener('click', () => {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*, .pdf';
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const fileItem = document.createElement('div');
+            fileItem.classList.add('file');
+            fileItem.innerHTML = `
+                <i class="fas fa-file-alt"></i>
+                <input class="edit-name" value="${file.name}" />
+            `;
+            fileItem.addEventListener('click', () => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    modal.style.display = "block";
+                    if (file.type.startsWith('image')) {
+                        modalBody.innerHTML = `<img src="${e.target.result}" />`;
+                    } else if (file.type === 'application/pdf') {
+                        modalBody.innerHTML = `<iframe src="${e.target.result}" frameborder="0"></iframe>`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+            driveContent.appendChild(fileItem);
+        });
+        fileInput.click();
+    });
+
+    // Cerrar modal
+    closeModal.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    // Event listener de drag and drop
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('active');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('active');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('active');
+        const files = e.dataTransfer.files;
+        Array.from(files).forEach(file => {
+            const fileItem = document.createElement('div');
+            fileItem.classList.add('file');
+            fileItem.innerHTML = `
+                <i class="fas fa-file-alt"></i>
+                <input class="edit-name" value="${file.name}" />
+            `;
+            fileItem.addEventListener('click', () => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    modal.style.display = "block";
+                    if (file.type.startsWith('image')) {
+                        modalBody.innerHTML = `<img src="${e.target.result}" />`;
+                    } else if (file.type === 'application/pdf') {
+                        modalBody.innerHTML = `<iframe src="${e.target.result}" frameborder="0"></iframe>`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+            driveContent.appendChild(fileItem);
+        });
+    });
+</script>
+
+</body>
+</html>
