@@ -1,16 +1,42 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 from pydantic import EmailStr
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
+from datetime import datetime, date
 # Model Imports
 from models.chats import ChatByID, create_chat, create_message, get_messages_by_chat_id
 from models.register import registro_usuario, login_usuario
+import models.reservas as reservas
+import models.oficina as oficinas
+
 
 
 app = FastAPI()
 
+# Modelo CRUD para oficina
+
+class Oficina(BaseModel):
+    id_propietario: Optional[int] = None 
+    nombre: Optional[str] = None
+    ubicacion: Optional[str] = None
+    descripcion: Optional[str] = None
+    capacidad_maxima: Optional[int] = None
+    precio: Optional[float] = None
+    disponibilidad: Optional[bool] = None
+    fecha_creacion: Optional[datetime] = None
+
+# Modelo CRUD para reserva
+
+class Reserva(BaseModel):
+    id_oficina: Optional[int] = None
+    id_coworker: Optional[int] = None
+    numero_colaboradores: Optional[int] = None
+    monto_total: Optional[float] = None
+    fecha_reserva: Optional[datetime] = None  
+    fecha_inicio: Optional[date] = None       
+    fecha_fin: Optional[date] = None     
 
 ### MODELOS BASE MODEL PARA USUARIOS ###
 
