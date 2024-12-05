@@ -1,16 +1,24 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 from pydantic import EmailStr
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
+
 from fastapi.middleware.cors import CORSMiddleware
+
+from datetime import datetime, date
+
 # Model Imports
 from models.chats import ChatByID, create_chat, create_message, get_messages_by_chat_id
 from models.register import registro_usuario, login_usuario
+import models.reservas as reservas
+import models.oficina as oficinas
+
 
 
 app = FastAPI()
+
 
 # Configuración de CORS
 origins = [
@@ -24,6 +32,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# Modelo CRUD para oficina
+
+class Oficina(BaseModel):
+    id_propietario: Optional[int] = None 
+    nombre: Optional[str] = None
+    ubicacion: Optional[str] = None
+    descripcion: Optional[str] = None
+    capacidad_maxima: Optional[int] = None
+    precio: Optional[float] = None
+    disponibilidad: Optional[bool] = None
+    fecha_creacion: Optional[datetime] = None
+
+# Modelo CRUD para reserva
+
+class Reserva(BaseModel):
+    id_oficina: Optional[int] = None
+    id_coworker: Optional[int] = None
+    numero_colaboradores: Optional[int] = None
+    monto_total: Optional[float] = None
+    fecha_reserva: Optional[datetime] = None  
+    fecha_inicio: Optional[date] = None       
+    fecha_fin: Optional[date] = None     
 
 ### MODELOS BASE MODEL PARA USUARIOS ###
 
@@ -194,3 +225,117 @@ async def get_messages_endpoint(id_chat: int):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Error al obtener los mensajes: {error}"
         )
+    
+#Obtener las oficinas
+
+@app.get(
+    "/oficinas",
+)
+async def getOficinas():
+    try:
+        response = oficinas.allOficinas()
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+# Obtener las reservas
+@app.get(
+    "/reservas",
+)
+async def getReservas():
+    try:
+        response = reservas.allReservas()
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+# crear una OFICINA
+@app.post(
+    "/oficina",
+    status_code = status.HTTP_201_CREATED,
+    summary = "Create a oficina",
+    description = """
+    Returns a JSON message that confirms the creation\n
+    errors:
+        400 - Bad Request
+        404 - Not Found
+    """,
+)
+async def createOficina(oficina: Oficina):
+    try:
+        response = oficinas.insertOficina(oficina)
+        return response
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=str(error))
+
+
+# crear una RESERVA
+@app.post(
+    "/reserva",
+    status_code = status.HTTP_201_CREATED,
+    summary = "Create a reserva",
+    description = """
+    Returns a JSON message that confirms the creation\n
+    errors:
+        400 - Bad Request
+        404 - Not Found
+    """,
+)
+async def createReserva(reserva: Reserva):
+    try:
+        response = reservas.createReserva(reserva)
+        print (response)
+        if response.message:
+            raise HTTPException(status_code=400, detail= f"Error al crear la reserva: { response.message}")
+        if response.data:
+            return { "message": "Se creo la reserva correctamente", "data": response.data}
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=str(error))
+
+# Actualizar oficina
+
+@app.put(
+    '/oficina/{id_oficina}'
+)
+async def updateOficina(id_oficina: int, oficina: Oficina):
+    try:
+        response = oficinas.updateOficina(id_oficina, oficina)
+        return response
+    except Exception as error:
+        return {"error": str(error)}
+    
+# Actualizar reserva
+@app.put(
+        '/reserva/{id_reserva}'
+)
+async def updateReserva(id_reserva: int, reserva: Reserva):
+    try:
+        response = reservas.updateReserva(id_reserva, reserva)
+        return response
+    except Exception as e:
+        print(f"Error al actualizar: {str(e)}")
+        return e
+    
+
+# Eliminar oficina
+@app.delete(
+    '/oficina/{id_oficina}'
+)
+async def removeOficina(id_oficina: int):
+    try:
+        response = oficinas.deleteOficina(id_oficina)
+        return response
+    except Exception as e:
+        return e
+
+# Eliminar reserva
+@app.delete(
+    '/reserva/{id_reserva}'
+)
+async def removeReserva(id_reserva: int):
+    try:
+        response = reservas.deleteReserva(id_reserva)
+        return response
+    except Exception as e:
+        return e
