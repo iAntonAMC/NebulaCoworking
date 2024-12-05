@@ -6,8 +6,9 @@ from typing import List
 
 
 # SUPABASE CONFIG
-url: str = "https://wuqrtilnoayfpgtmsyrc.supabase.co/"
-key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1cXJ0aWxub2F5ZnBndG1zeXJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzMzc1MTEsImV4cCI6MjA0ODkxMzUxMX0.AjLa7LU76hCLAMiwLmLVta58b0lP066mkhf7NPzFXbc"
+url: str = "https://eegpspgminmhrajbujkg.supabase.co"
+key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlZ3BzcGdtaW5taHJhamJ1amtnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNzAwOTgsImV4cCI6MjA0ODk0NjA5OH0.XBDFsIJtYEoHjrjMbjqLSylsxyCBgmYFtkVL0GKemr0"
+
 supabase: Client = create_client(url, key, 
     options=ClientOptions(
         postgrest_client_timeout=10,
