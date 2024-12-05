@@ -8,159 +8,304 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9f9f9;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
+            overflow: hidden;
         }
 
         .main-container {
             display: flex;
+            flex-direction: column;
             width: 90%;
             max-width: 1200px;
-            height: 80vh;
+            height: 90vh;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
-        /* Chat Section */
-        .chat-section {
-            flex: 1;
+        /* Contenedor de la fila superior (Chat y Eventos) */
+        .top-row {
             display: flex;
-            flex-direction: column;
-            border-right: 1px solid #ddd;
-            padding: 20px;
-        }
-
-        .chat-header {
-            font-size: 20px;
-            font-weight: bold;
-            color: #476D77;
-            margin-bottom: 15px;
-        }
-
-        .chat-box {
             flex: 1;
+            overflow: hidden;
+        }
+
+/* Chat Section (Lado izquierdo) */
+.chat-section {
+    width: 350px; /* Aumentar el tamaño para mayor espacio */
+    background-color: #2a3d40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 15px 0 0 15px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadido efecto de sombra sutil */
+}
+
+/* Encabezado del chat */
+.chat-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center; /* Centrado del encabezado */
+}
+
+/* Área de mensajes */
+.chat-box {
+    flex: 1;
+    height: 520px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #464646;
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); /* Sombra interna */
+}
+
+/* Estilo para cada mensaje */
+.chat-box .message {
+    margin-bottom: 15px;
+}
+
+.chat-box .message .sender {
+    font-weight: bold;
+    color: #476D77; /* Un tono azul suave */
+}
+
+.chat-box .message .content {
+    color: #333;
+}
+
+/* Input del mensaje (textarea) */
+textarea {
+    width: 90%;
+    height: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    resize: none; /* Evitar el cambio de tamaño del área de texto */
+    margin-top: 10px;
+    transition: border-color 0.3s ease; /* Transición suave */
+}
+
+/* Enfoque del textarea */
+textarea:focus {
+    border-color: #4CAF50; /* Cambio de color cuando está enfocado */
+    outline: none;
+}
+
+/* Botón de envío */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* Cambio de color del botón cuando pasa el ratón sobre él */
+button:hover {
+    background-color: #45a049;
+}
+
+
+        /* Events Section (Lado derecho) */
+        .events-section {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 0 15px 15px 0;
             overflow-y: auto;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 10px;
-            background-color: #f4f4f4;
         }
 
-        .chat-box .message {
-            margin-bottom: 10px;
-        }
-
-        .chat-box .message .sender {
+        .events-header {
+            font-size: 24px;
             font-weight: bold;
-            color: #476D77;
+            margin-bottom: 20px;
+            color: #3d4f5c;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
         }
 
-        .chat-box .message .text {
-            margin-left: 10px;
-        }
-
-        .chat-input {
-            margin-top: 10px;
-            display: flex;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
+        /* Tarjetas de eventos */
+        .event-card {
+            background-color: #f4f7fb;
             border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .chat-input button {
-            background-color: #476D77;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .chat-input button:hover {
-            background-color: #A8A7A5;
+        .event-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #476d77;
+            margin-bottom: 8px;
         }
 
-        .share-data-button {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #8AA39A;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s ease;
+        .event-card p {
+            color: #555;
+            font-size: 14px;
         }
 
-        .share-data-button:hover {
-            background-color: #476D77;
-        }
-
-        /* Calendar Section */
-        .calendar-section {
-            flex: 1.5;
+        /* Archivos (Footer) */
+        .footer {
             padding: 20px;
-            display: flex;
-            flex-direction: column;
+            background-color: #f9f9f9;
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            border-radius: 10px;
+            overflow-y: auto;
         }
 
-        .calendar-header {
+        .footer-header {
             font-size: 20px;
             font-weight: bold;
-            color: #476D77;
             margin-bottom: 15px;
+            color: #476d77;
         }
 
-        .calendar {
-            flex: 1;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+        .file-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .file-item {
+            background-color: #f4f7fb;
             padding: 10px;
-            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 150px;
+            text-align: center;
+            font-size: 12px;
+            color: #476d77;
+        }
+
+        .file-item img {
+            max-width: 100px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
+
     <div class="main-container">
-        <!-- Chat Section -->
-        <div class="chat-section">
-            <div class="chat-header">Chat Grupal</div>
-            <div class="chat-box">
-                <div class="message">
-                    <span class="sender">Ana:</span>
-                    <span class="text">¡Hola equipo! ¿Cómo va todo?</span>
+        <div class="top-row">
+            <!-- Chat Section -->
+            <div class="chat-section">
+                <div class="chat-header">Chat</div>
+                <div class="chat-box" id="chat-box">
                 </div>
-                <div class="message">
-                    <span class="sender">Luis:</span>
-                    <span class="text">Todo en orden, Ana. Gracias.</span>
+                <div class="chat-footer">
+                    <textarea id="mensaje" placeholder="Escribe un mensaje..."></textarea>
+                    <button onclick="enviarMensaje()">Enviar</button>
                 </div>
             </div>
-            <div class="chat-input">
-                <input type="text" placeholder="Escribe un mensaje...">
-                <button>Enviar</button>
+
+            <!-- Events Section -->
+            <div class="events-section">
+                <div class="events-header">Agenda de Eventos</div>
+                <!-- Tarjetas de eventos -->
+                <div class="event-card">
+                    <h3>Reunión de equipo</h3>
+                    <p>Fecha: 12 de diciembre a las 10:00 AM</p>
+                </div>
+                <div class="event-card">
+                    <h3>Revisión de proyectos</h3>
+                    <p>Fecha: 14 de diciembre a las 2:00 PM</p>
+                </div>
             </div>
-            <button class="share-data-button" onclick="window.location.href='compartir_datos.html'">Compartir Datos</button>
         </div>
 
-        <!-- Calendar Section -->
-        <div class="calendar-section">
-            <div class="calendar-header">Calendario de Actividades</div>
-            <div class="calendar">
-                <p>Aquí se mostrará el calendario con las próximas actividades.</p>
+        <!-- Archivos Compartidos (Footer) -->
+        <div class="footer">
+            <div class="footer-header">Archivos Compartidos</div>
+            <div class="file-list">
+                <div class="file-item">
+                    <img src="https://via.placeholder.com/100" alt="Documento 1">
+                    <p>Documento 1</p>
+                </div>
+                <div class="file-item">
+                    <img src="https://via.placeholder.com/100" alt="Documento 2">
+                    <p>Documento 2</p>
+                </div>
+                <div class="file-item">
+                    <img src="https://via.placeholder.com/100" alt="Documento 3">
+                    <p>Documento 3</p>
+                </div>
             </div>
         </div>
     </div>
+
 </body>
+<script>
+    async function enviarMensaje() {
+        const contenido = document.getElementById('mensaje').value;
+        const mensajeData = {
+            id_chat: 1, // Aquí puedes poner el ID del chat
+            id_emisor: 1, // El ID del usuario que está enviando el mensaje
+            contenido: contenido
+        };
+        
+        const response = await fetch('https://effective-journey-wqv4q6745wj3gq69-8000.app.github.dev/mensajes/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(mensajeData),
+        });
+
+        if (response.ok) {
+            // Limpiar el campo del mensaje
+            document.getElementById('mensaje').value = '';
+            obtenerMensajes(); // Recargar mensajes después de enviar uno nuevo
+        } else {
+            alert("Error al enviar el mensaje");
+        }
+    }
+
+    async function obtenerMensajes() {
+        const response = await fetch('https://effective-journey-wqv4q6745wj3gq69-8000.app.github.dev/mensajes/1');
+        const data = await response.json();
+        
+        const chatBox = document.getElementById('chat-box');
+        chatBox.innerHTML = ''; // Limpiar la caja antes de agregar los mensajes
+
+        data.messages.forEach(mensaje => {
+            const mensajeDiv = document.createElement('div');
+            mensajeDiv.classList.add('mensaje');
+            mensajeDiv.innerHTML = `
+                <p><strong>Usuario ${mensaje.id_emisor}:</strong> ${mensaje.contenido}</p>
+                <small>${new Date(mensaje.fecha_envio).toLocaleString()}</small>
+            `;
+            chatBox.appendChild(mensajeDiv);
+        });
+    }
+
+    // Llamar a obtenerMensajes al cargar la página
+    window.onload = obtenerMensajes;
+</script>
 </html>
