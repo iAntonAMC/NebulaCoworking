@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Oficina</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .office-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .office-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-container input,
+        .input-container select {
+            width: calc(100% - 30px);
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-container input:focus,
+        .input-container select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button[type="submit"] {
+            background-color: #476D77;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #A8A7A5;
+        }
+
+        .back-to-dashboard {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .back-to-dashboard a {
+            font-size: 30px;
+            color: #476D77;
+            text-decoration: none;
+        }
+
+        .back-to-dashboard a:hover {
+            color: #A8A7A5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="office-container">
+        <div class="back-to-dashboard">
+            <a href="dashboard.html">&#8592;</a>
+        </div>
+        <h2>Agregar Nueva Oficina</h2>
+        <form action="procesar_oficina.php" method="POST">
+            <div class="input-container">
+                <input type="text" id="nombre" name="nombre" maxlength="100" placeholder="Nombre de la Oficina" required>
+            </div>
+            <div class="input-container">
+                <input type="text" id="ubicacion" name="ubicacion" maxlength="150" placeholder="Ubicación de la Oficina" required>
+            </div>
+            <div class="input-container">
+                <input type="number" id="capacidad" name="capacidad" min="1" placeholder="Capacidad" required>
+            </div>
+            <div class="input-container">
+                <select id="estatus" name="estatus" required>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </div>
+            <button type="submit">Agregar Oficina</button>
+        </form>
+    </div>
+</body>
+
+</html>
