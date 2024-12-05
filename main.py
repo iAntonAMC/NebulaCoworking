@@ -6,8 +6,31 @@ from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
 # Model Imports
 from models.chats import ChatByID, create_chat, create_message, get_messages_by_chat_id
+from models.register import registro_usuario, login_usuario
+
 
 app = FastAPI()
+
+
+### MODELOS BASE MODEL PARA USUARIOS ###
+
+class UsuarioBase(BaseModel):
+    nombre: str
+    correo: EmailStr
+    tipo_usuario: str  # propietario o coworker
+
+class UsuarioRegistro(BaseModel):
+    nombre: str
+    correo: EmailStr
+    contraseña: str
+    tipo_usuario: str  # Este campo debe existir
+    id_empresa: int  # Asegúrate de que 'id_empresa' esté definido
+
+class UsuarioLogin(BaseModel):
+    correo: EmailStr
+    contraseña: str
+
+### MODELOS BASE MODEL PARA CHATS ###
 
 class Chat(BaseModel):
     id_chat: int
@@ -35,6 +58,33 @@ class MessagesResponse(BaseModel):
 @app.get("/")
 async def read_root():
     return {"message": "API Arriba"}
+
+### MODELOS PARA LOGIN Y REGISTRO ###
+
+@app.post("/registro", status_code=status.HTTP_201_CREATED)
+async def registro(usuario: UsuarioRegistro):
+    try:
+        # Aquí llamamos a la función sin 'await' ya que no es asincrónica
+        response = registro_usuario(usuario.nombre, usuario.correo, usuario.contraseña, usuario.tipo_usuario, usuario.id_empresa)
+        return response
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error en el registro: {str(e)}")
+
+
+@app.post("/login", status_code=status.HTTP_200_OK)
+async def login(usuario: UsuarioLogin):
+    try:
+        # Usamos la función de login directamente sin pasar supabase como argumento
+        response = login_usuario(usuario.correo, usuario.contraseña)
+        return response
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error en el login: {str(e)}")
+
+#### MODELOS PARA EL CHAT#####
 
 # Check Connection
 @app.get("/connect")
