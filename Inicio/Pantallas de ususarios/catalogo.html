@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Espacios</title>
+  <style> 
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+    }
+
+    .header {
+        background-color: #8AA39A;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .search-bar input {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .catalog {
+        padding: 20px;
+    }
+
+    .catalog-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 380px;  /* Establece una altura mínima para evitar estiramientos */
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card img {
+        width: 100%;
+        height: 200px; /* Mantiene la altura fija de la imagen */
+        object-fit: cover; /* Recorta la imagen si es necesario */
+        object-position: center; /* Centra la imagen */
+        flex-shrink: 0; /* Evita que la imagen se encoja */
+    }
+
+    .card-content {
+        padding: 15px;
+
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .card-price {
+        font-size: 16px;
+        color: #5c67f2;
+        margin-bottom: 10px;
+    }
+
+    .card-location {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .card-button {
+        display: block;
+        text-align: center;
+        background-color: #476D77;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .card-button:hover {
+        background-color: #A8A7A5;
+    }
+
+    .footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .detalles-container {
+        max-width: 600px;
+        margin: 50px auto;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Catálogo de Espacios</h1>
+  </div>
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Buscar por nombre o costo...">
+  </div>
+
+  <div class="catalog">
+    <div class="catalog-container" id="catalog-container"></div>
+  </div>
+
+  <div class="footer">
+    <p>© 2024 Espacios Coworking</p>
+  </div>
+
+  <script>
+    const spaces = [
+  {
+    id: 1,
+    title: "Oficina Privada",
+    price: "$500 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/oficina.jpg",
+    description: "Un espacio privado ideal para reuniones importantes o trabajo enfocado.",
+  },
+  {
+    id: 2,
+    title: "Sala de Reuniones",
+    price: "$800 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/imagen2.jpg",
+    description: "Espacio perfecto para reuniones en equipo con capacidad para 10 personas.",
+  },
+  {
+    id: 3,
+    title: "Escritorio Compartido",
+    price: "$150 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/oficina.jpg",
+    description: "Zona compartida ideal para trabajo colaborativo o freelance.",
+  },
+  {
+    id: 4,
+    title: "Oficina Ejecutiva",
+    price: "$600 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/ejecutiva.jpg",
+    description: "Oficina privada con escritorio y sillas para un ambiente ejecutivo.",
+  },
+  {
+    id: 5,
+    title: "Espacio Coworking",
+    price: "$200 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/cok (1).jpg",
+    description: "Espacio compartido con otros profesionales, ideal para emprendedores.",
+  },
+  {
+    id: 6,
+    title: "Sala de Conferencias",
+    price: "$1200 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/confe.jpg",
+    description: "Gran espacio para conferencias y presentaciones, con tecnología avanzada.",
+  },
+  {
+    id: 7,
+    title: "Sala De juegos",
+    price: "$1000 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/descarga.jpg", 
+    description: "Gran espacio para conferencias y presentaciones, con tecnología avanzada.",
+  },
+  {
+    id: 8,
+    title: "Oficina Ejecutiva",
+    price: "$600 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/ejecutiva.jpg", 
+    description: "Oficina privada con escritorio y sillas para un ambiente ejecutivo.",
+  },
+  {
+    id: 9,
+    title: "Oficina Ejecutiva",
+    price: "$600 MXN/día",
+    location: "Tulancingo, Hidalgo",
+    image: "images/descarga.jpg", 
+    description: "Oficina privada con escritorio y sillas para un ambiente ejecutivo.",
+  },
+];
+
+const catalogContainer = document.getElementById("catalog-container");
+const searchInput = document.getElementById("search-input");
+
+function displaySpaces(filteredSpaces) {
+  catalogContainer.innerHTML = ""; 
+  filteredSpaces.forEach((space) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    card.innerHTML = `
+      <img src="${space.image}" alt="${space.title}">
+      <div class="card-content">
+        <h3 class="card-title">${space.title}</h3>
+        <p class="card-price">${space.price}</p>
+        <p class="card-location">${space.location}</p>
+        <a href="detalles_oficina.html" class="card-button" data-id="${space.id}">Reservar</a>
+      </div>
+    `;
+
+    catalogContainer.appendChild(card);
+  });
+}
+
+displaySpaces(spaces);
+
+searchInput.addEventListener("input", () => {
+  const searchTerm = searchInput.value.toLowerCase();
+
+  const filteredSpaces = spaces.filter((space) => {
+    return (
+      space.title.toLowerCase().includes(searchTerm) ||
+      space.price.toLowerCase().includes(searchTerm)
+    );
+  });
+  displaySpaces(filteredSpaces);
+});
+catalogContainer.addEventListener("click", (event) => {
+  if (event.target.classList.contains("card-button")) {
+    event.preventDefault();
+
+    const spaceId = event.target.getAttribute("data-id");
+    const selectedSpace = spaces.find((space) => space.id == spaceId);
+
+    localStorage.setItem("selectedSpace", JSON.stringify(selectedSpace));
+    window.location.href = "detalles_oficina.html";
+  }
+});
+  </script>
+</body>
+</html>

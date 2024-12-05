@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Pago</title>
+  <style>
+    /* Estilo General */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #8AA39A;
+      padding: 20px 20px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 15px;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contenedor Principal */
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .form-group input[type="date"] {
+      font-family: inherit;
+    }
+
+    .form-group select {
+      appearance: none;
+    }
+
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #476D77;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+      background-color: #A8A7A5;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 50px;
+    }
+    .footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 25px;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-title">Nebula</div>
+    <div class="navbar-links">
+      <a href="index.html">Inicio</a>
+      <a href="detalles.html">Regresar</a>
+    </div>
+  </div>
+
+  <!-- Formulario de Pago -->
+  <div class="container">
+    <h1>Formulario de Pago</h1>
+    <form id="payment-form">
+      <div class="form-group">
+        <label for="collaborators">Número de Colaboradores</label>
+        <input type="number" id="collaborators" name="collaborators" min="1" required>
+      </div>
+      <div class="form-group">
+        <label for="total">Monto Total</label>
+        <input type="text" id="total" name="total" readonly>
+      </div>
+      <div class="form-group">
+        <label for="reservation-date">Fecha Reservada</label>
+        <input type="date" id="reservation-date" name="reservation-date" required>
+      </div>
+      <div class="form-group">
+        <label for="start-date">Fecha de Inicio</label>
+        <input type="date" id="start-date" name="start-date" required>
+      </div>
+      <div class="form-group">
+        <label for="end-date">Fecha de Fin</label>
+        <input type="date" id="end-date" name="end-date" required>
+      </div>
+      <div class="form-group">
+        <label for="payment-method">Tipo de Pago</label>
+        <select id="payment-method" name="payment-method" required>
+          <option value="paypal">PayPal</option>
+          <option value="tarjeta">Tarjeta</option>
+          <option value="transferencia">Transferencia</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-button">Pagar</button>
+    </form>
+  </div>
+  <div class="footer">
+    <p>&copy; 2024 Nebula Coworking. Todos los derechos reservados.</p>
+  </div>
+</body>
+</html>

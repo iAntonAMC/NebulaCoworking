@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Espacio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .navbar {
+      background-color: #8AA39A;
+      padding: 20px 20px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 15px;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 20px;
+    }
+
+    .details {
+      flex: 1;
+    }
+
+    .details h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .details p {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .availability {
+      font-size: 16px;
+      font-weight: bold;
+      color: green;
+    }
+
+    .confirm-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #476D77;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .confirm-button:hover {
+      background-color: #A8A7A5;
+    }
+
+    .image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 330px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-title">Nebula</div>
+    <div class="navbar-links">
+      <a href="index.html">Inicio</a>
+      <a href="index.html">Catálogo</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="details">
+      <h1 id="space-title"></h1>
+      <p id="space-description"></p>
+      <p class="availability" id="space-availability">Disponible</p>
+      <a href="#" class="confirm-button" id="confirm-button">Confirmar Reserva</a>
+    </div>
+    <div class="image-container">
+      <img id="space-image" src="" alt="Espacio">
+    </div>
+  </div>
+  <div class="footer">
+    <p>&copy; 2024 Nebula Coworking. Todos los derechos reservados.</p>
+  </div>
+
+  <script>
+        const selectedSpace = JSON.parse(localStorage.getItem("selectedSpace"));
+
+    if (selectedSpace) {
+
+      document.getElementById("space-image").src = selectedSpace.image;
+      document.getElementById("space-title").textContent = selectedSpace.title;
+      document.getElementById("space-description").textContent = `Ubicación: ${selectedSpace.location}. Precio: ${selectedSpace.price}.`;
+    } else {
+      // Manejar el caso en el que no haya datos seleccionados
+      document.querySelector(".container").innerHTML = `
+        <p>Ocurrió un error al cargar los detalles del espacio. Regresa al catálogo y selecciona un espacio nuevamente.</p>
+      `;
+    }
+    document.getElementById("confirm-button").addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href = "menu_pago.html";
+    });
+  </script>
+</body>
+</html>

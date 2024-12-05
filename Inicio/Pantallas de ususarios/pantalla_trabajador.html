@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz del Trabajador</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .main-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .chat-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #476D77;
+            margin-bottom: 15px;
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+
+        .chat-box .message {
+            margin-bottom: 10px;
+        }
+
+        .chat-box .message .sender {
+            font-weight: bold;
+            color: #476D77;
+        }
+
+        .chat-box .message .text {
+            margin-left: 10px;
+        }
+
+        .chat-input {
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .chat-input button {
+            background-color: #476D77;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background-color: #A8A7A5;
+        }
+
+        .share-data-button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #8AA39A;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .share-data-button:hover {
+            background-color: #476D77;
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            flex: 1.5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calendar-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #476D77;
+            margin-bottom: 15px;
+        }
+
+        .calendar {
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">Chat Grupal</div>
+            <div class="chat-box">
+                <div class="message">
+                    <span class="sender">Ana:</span>
+                    <span class="text">¡Hola equipo! ¿Cómo va todo?</span>
+                </div>
+                <div class="message">
+                    <span class="sender">Luis:</span>
+                    <span class="text">Todo en orden, Ana. Gracias.</span>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Escribe un mensaje...">
+                <button>Enviar</button>
+            </div>
+            <button class="share-data-button" onclick="window.location.href='compartir_datos.html'">Compartir Datos</button>
+        </div>
+
+        <!-- Calendar Section -->
+        <div class="calendar-section">
+            <div class="calendar-header">Calendario de Actividades</div>
+            <div class="calendar">
+                <p>Aquí se mostrará el calendario con las próximas actividades.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

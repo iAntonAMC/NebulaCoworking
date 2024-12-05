@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Rol</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9; /* Fondo claro */
+        }
+
+        .role-container {
+            background: rgba(255, 255, 255, 0.95); /* Fondo blanco con transparencia */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra suave */
+            width: 350px;
+            text-align: center;
+        }
+
+        .role-container h2 {
+            margin-bottom: 20px;
+            color: #476D77; /* Color del título */
+            font-size: 24px;
+        }
+
+        .role-container button {
+            background-color: #476D77;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%; /* Botones a lo ancho */
+            transition: background-color 0.3s ease;
+        }
+
+        .role-container button:hover {
+            background-color: #8AA39A; /* Hover verde más claro */
+        }
+
+        .role-container .back-button {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .role-container .back-button a {
+            color: #476D77;
+            text-decoration: none;
+        }
+
+        .role-container .back-button a:hover {
+            color: #A8A7A5;
+        }
+    </style>
+</head>
+<body>
+    <div class="role-container">
+        <h2>Selecciona tu Rol</h2>
+        <button onclick="window.location.href='catalogo.html'">Representante/Jefe</button>
+        <button onclick="window.location.href='token_trabajador.html'">Trabajador</button>
+        <div class="back-button">
+            <a href="pagina_principal.html">Salir</a>
+        </div>
+    </div>
+</body>
+</html>
