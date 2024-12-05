@@ -4,6 +4,9 @@ from pydantic import BaseModel
 from pydantic import EmailStr
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
+
+from fastapi.middleware.cors import CORSMiddleware
+
 from datetime import datetime, date
 from fastapi.middleware.cors import CORSMiddleware
 # Model Imports
@@ -15,6 +18,20 @@ import models.oficina as oficinas
 
 
 app = FastAPI()
+
+
+# Configuración de CORS
+origins = [
+    '*'
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Modelo CRUD para oficina
 
