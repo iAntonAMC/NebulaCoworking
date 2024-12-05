@@ -2,6 +2,8 @@ from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 from supabase import create_client, Client
 from supabase.client import ClientOptions
+from typing import List
+
 
 # SUPABASE CONFIG
 url: str = "https://wuqrtilnoayfpgtmsyrc.supabase.co/"
@@ -68,3 +70,16 @@ def create_message(id_chat: int, id_emisor: int, contenido: str):
     except Exception as error:
         print(f"Error al crear el mensaje: {error.args}")
         raise Exception(f"Error en la creación del mensaje: {error}")
+
+# GET chat messages by chat id
+def get_messages_by_chat_id(id_chat: int) -> List[dict]:
+    try:
+        response = supabase.table('mensajes').select('*').eq("id_chat", id_chat).execute()
+        
+        if response.data:
+            return response.data
+        else:
+            return []
+    except Exception as error:
+        print(f"Error al obtener los mensajes: {error.args}")
+        raise Exception(f"Error en la obtención de los mensajes: {error}")
