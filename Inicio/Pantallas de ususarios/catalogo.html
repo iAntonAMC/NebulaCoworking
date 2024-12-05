@@ -17,7 +17,32 @@
         color: #fff;
         padding: 20px;
         text-align: center;
+        position: relative;
     }
+    
+    .add-code-button {
+        position: absolute;
+        top: 20px; 
+        left: 20px;
+        padding: 10px 20px;
+        background-color: #5c67f2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-code-button:hover {
+        background-color: #3a4fa7;
+    }
+
+    .header h1 {
+        margin-top: 60px; 
+        font-size: 2rem;
+    }
+
     .search-bar {
         display: flex;
         justify-content: center;
@@ -50,7 +75,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        min-height: 380px;  /* Establece una altura mínima para evitar estiramientos */
+        min-height: 380px;  
     }
 
     .card:hover {
@@ -59,10 +84,10 @@
 
     .card img {
         width: 100%;
-        height: 200px; /* Mantiene la altura fija de la imagen */
-        object-fit: cover; /* Recorta la imagen si es necesario */
-        object-position: center; /* Centra la imagen */
-        flex-shrink: 0; /* Evita que la imagen se encoja */
+        height: 200px; 
+        object-fit: cover; 
+        object-position: center; 
+        flex-shrink: 0; 
     }
 
     .card-content {
@@ -117,10 +142,23 @@
         margin: 50px auto;
     }
 
+    .add-code-button {
+      display: block;
+        text-align: center;
+        background-color: #476D77;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
   </style>
 </head>
 <body>
   <div class="header">
+    <button class="add-code-button" onclick="window.location.href='pantalla_trabajador.html'">Código de Organización</button>
     <h1>Catálogo de Espacios</h1>
   </div>
   <div class="search-bar">
@@ -247,6 +285,7 @@ searchInput.addEventListener("input", () => {
   });
   displaySpaces(filteredSpaces);
 });
+
 catalogContainer.addEventListener("click", (event) => {
   if (event.target.classList.contains("card-button")) {
     event.preventDefault();
@@ -258,6 +297,7 @@ catalogContainer.addEventListener("click", (event) => {
     window.location.href = "detalles_oficina.html";
   }
 });
-  </script>
+
+</script>
 </body>
 </html>
