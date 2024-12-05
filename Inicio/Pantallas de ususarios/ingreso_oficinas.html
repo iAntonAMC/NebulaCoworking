@@ -96,7 +96,7 @@
             <a href="dashboard.html">&#8592;</a>
         </div>
         <h2>Agregar Nueva Oficina</h2>
-        <form action="procesar_oficina.php" method="POST">
+        <form action="catalogo.html">
             <div class="input-container">
                 <input type="text" id="nombre" name="nombre" maxlength="100" placeholder="Nombre de la Oficina" required>
             </div>
@@ -104,17 +104,68 @@
                 <input type="text" id="ubicacion" name="ubicacion" maxlength="150" placeholder="Ubicación de la Oficina" required>
             </div>
             <div class="input-container">
-                <input type="number" id="capacidad" name="capacidad" min="1" placeholder="Capacidad" required>
+                <input type="text" id="descripcion" name="descripcion" min="1" placeholder="Descripcion" required>
             </div>
             <div class="input-container">
+                <input type="number" id="precio" name="precio" min="1" placeholder="Precio" required>
+            </div>
+            <div class="input-container">
+                <input type="number" id="capacidad" name="capacidad" min="1" placeholder="Capacidad" required>
+            </div>
+           
+            <div class="input-container">
                 <select id="estatus" name="estatus" required>
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
                 </select>
             </div>
-            <button type="submit">Agregar Oficina</button>
+            <button id="boton" type="submit">Agregar Oficina</button>
         </form>
     </div>
+    <script type="module">
+
+        import { getOficinas } from '../../services/api_oficinas.js'
+        import { addOficinas } from '../../services/api_oficinas.js'
+    
+        const id_propietario = 1;
+        const nombre = document.getElementById("nombre");
+        const ubicacion = document.getElementById("ubicacion");
+        const descripcion = document.getElementById("descripcion");
+        const capacidad_maxima = document.getElementById("capacidad");
+        const precio = document.getElementById("precio");
+        const disponibilidad = document.getElementById("estatus");
+    
+        const boton = document.getElementById("boton");
+        boton.addEventListener('click', async () => {
+            try {
+                // Obtenemos los valores de los inputs
+                const nombreValue = nombre.value;
+                const ubicacionValue = ubicacion.value;
+                const descripcionValue = descripcion.value;
+                const capacidadMaximaValue = capacidad_maxima.value;
+                const precioValue = precio.value;
+                const disponibilidadValue = disponibilidad.value;
+    
+                // Llamamos a la función con los valores
+                const response = await addOficinas(
+                    id_propietario,
+                    nombreValue,
+                    ubicacionValue,
+                    descripcionValue,
+                    capacidadMaximaValue,
+                    precioValue,
+                    disponibilidadValue
+                );
+    
+                if ( response.data.lengh() > 0) {
+                    window.alert('Oficina insertada')
+                }
+            } catch (e) {
+                console.error('Error al obtener los datos', e);
+                throw e;
+            }
+        });
+    </script>
 </body>
 
 </html>

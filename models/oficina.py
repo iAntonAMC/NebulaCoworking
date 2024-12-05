@@ -28,8 +28,6 @@ def allOficinas():
 def insertOficina(oficina):
     try:
         data = oficina.dict()
-        data["fecha_creacion"] = data["fecha_creacion"].strftime("%Y-%m-%d %H:%M:%S")
-        
         response = supabase.table("oficinas").insert(data).execute()
         
         if len(response.data) > 0:

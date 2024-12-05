@@ -5,6 +5,7 @@ from pydantic import EmailStr
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
 from datetime import datetime, date
+from fastapi.middleware.cors import CORSMiddleware
 # Model Imports
 from models.chats import ChatByID, create_chat, create_message, get_messages_by_chat_id
 from models.register import registro_usuario, login_usuario
@@ -17,15 +18,14 @@ app = FastAPI()
 
 # Modelo CRUD para oficina
 
-class Oficina(BaseModel):
-    id_propietario: Optional[int] = None 
+class Oficina(BaseModel): 
+    id_propietario: Optional[int] = None
     nombre: Optional[str] = None
     ubicacion: Optional[str] = None
     descripcion: Optional[str] = None
     capacidad_maxima: Optional[int] = None
     precio: Optional[float] = None
     disponibilidad: Optional[bool] = None
-    fecha_creacion: Optional[datetime] = None
 
 # Modelo CRUD para reserva
 
@@ -80,6 +80,18 @@ class Message(BaseModel):
 
 class MessagesResponse(BaseModel):
     messages: List[Message]
+
+# CORS
+origins = [
+    '*'
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
 
 @app.get("/")
 async def read_root():
@@ -211,7 +223,7 @@ async def get_messages_endpoint(id_chat: int):
 #Obtener las oficinas
 
 @app.get(
-    "/oficinas",
+    "/oficina",
 )
 async def getOficinas():
     try:

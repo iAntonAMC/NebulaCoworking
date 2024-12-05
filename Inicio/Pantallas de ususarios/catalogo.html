@@ -173,7 +173,7 @@
     <p>© 2024 Espacios Coworking</p>
   </div>
 
-  <script>
+  <script type="module">
     const spaces = [
   {
     id: 1,
@@ -296,6 +296,30 @@ catalogContainer.addEventListener("click", (event) => {
     localStorage.setItem("selectedSpace", JSON.stringify(selectedSpace));
     window.location.href = "detalles_oficina.html";
   }
+});
+
+
+import { getOficinas } from '../../services/api_oficinas.js'
+import { addOficinas } from '../../services/api_oficinas.js'
+
+const id_propietario = 1;
+const nombre = document.getElementById("nombre");
+const ubicacion = document.getElementById("ubicacion");
+const descripcion = document.getElementById("descripcion");
+const capacidad_maxima = document.getElementById("capacidad");
+const precio = document.getElementById("precio");
+const disponibilidad = document.getElementById("estatus");
+
+const boton = document.getElementById("boton");
+boton.addEventListener('click', async () => {
+    try {
+        // Obtenemos los valores de los inputs
+        const response = await getOficinas();
+        console.log(response);
+    } catch (e) {
+        console.error('Error al obtener los datos', e);
+        throw e;
+    }
 });
 
 </script>
