@@ -5,7 +5,7 @@ from pydantic import EmailStr
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import JSONResponse
 # Model Imports
-from models.chats import ChatByID, create_chat, create_message
+from models.chats import ChatByID, create_chat, create_message, get_messages_by_chat_id
 
 app = FastAPI()
 
@@ -21,6 +21,16 @@ class MessageCreate(BaseModel):
     id_chat: int
     id_emisor: int
     contenido: str
+
+class Message(BaseModel):
+    id_mensaje: int
+    id_chat: int
+    id_emisor: int
+    contenido: str
+    fecha_envio: str
+
+class MessagesResponse(BaseModel):
+    messages: List[Message]
 
 @app.get("/")
 async def read_root():
@@ -95,3 +105,29 @@ async def create_message_endpoint(message: MessageCreate):
         )
 
 # Get Messages by Chat ID
+@app.get("/mensajes/{id_chat}", status_code=status.HTTP_200_OK)
+async def get_messages_endpoint(id_chat: int):
+    try:
+        # Llamamos a la función para obtener los mensajes del chat
+        messages_data = get_messages_by_chat_id(id_chat)
+
+        if messages_data:
+            # Mapeamos los mensajes a la estructura de la respuesta del modelo
+            messages = [Message(
+                id_mensaje=msg['id_mensaje'],
+                id_chat=msg['id_chat'],
+                id_emisor=msg['id_emisor'],
+                contenido=msg['contenido'],
+                fecha_envio=msg['fecha_envio']
+            ) for msg in messages_data]
+
+            return MessagesResponse(messages=messages)
+        else:
+            return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={"message": "No se encontraron mensajes para este chat"})
+
+    except Exception as error:
+        print(f"Error en get_messages_endpoint: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Error al obtener los mensajes: {error}"
+        )
