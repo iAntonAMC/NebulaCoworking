@@ -1,167 +1,286 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario de Pago</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
-    /* Estilo General */
+    /* Estilos generales */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f9;
-    }
-
-    /* Navbar */
-    .navbar {
-      background-color: #8AA39A;
-      padding: 20px 20px;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .navbar a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      margin-left: 15px;
-    }
-
-    .navbar a:hover {
-      text-decoration: underline;
     }
 
     /* Contenedor Principal */
     .container {
       max-width: 600px;
       margin: 50px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .container h1 {
-      font-size: 24px;
+      font-size: 28px;
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       text-align: center;
     }
 
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
+      font-size: 16px;
       color: #555;
+      margin-bottom: 8px;
     }
 
     .form-group input,
     .form-group select {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      padding: 12px;
       font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      color: #333;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      transition: all 0.3s;
     }
 
-    .form-group input[type="date"] {
-      font-family: inherit;
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #476D77;
+      background-color: #fff;
     }
 
-    .form-group select {
-      appearance: none;
+    /* Métodos de Pago */
+    .payment-methods {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 30px;
     }
 
-    .submit-button {
-      display: block;
-      width: 100%;
-      padding: 10px;
+    .payment-method {
+      text-align: center;
+      cursor: pointer;
+      padding: 20px;
+      width: 100px;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .payment-method:hover {
       background-color: #476D77;
       color: #fff;
+      transform: scale(1.1);
+    }
+
+    .payment-method i {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .payment-method p {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    /* Detalles del Pago */
+    .payment-details {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .payment-details.active {
+      display: block;
+    }
+
+    /* Estilos del Botón de Pagar */
+    .submit-button {
+      width: 100%;
+      padding: 15px;
+      background-color: #476D77;
+      color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 10px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
+      margin-top: 30px;
     }
 
     .submit-button:hover {
       background-color: #A8A7A5;
     }
 
-    /* Footer */
+    .submit-button.processing {
+      background-color: #A8A7A5;
+      cursor: not-allowed;
+    }
+
+    /* Animación de Carga */
+    .loading {
+      display: none;
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      color: #476D77;
+    }
+
     .footer {
       background-color: #333;
-      color: #fff;
+      color: white;
       text-align: center;
-      padding: 10px 0;
-      margin-top: 50px;
+      padding: 20px;
+      margin-top: 30px;
     }
-    .footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 25px;
-}
 
+    .confirmation {
+      display: none;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 30px;
+      color: #28a745;
+    }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="navbar-title">Nebula</div>
-    <div class="navbar-links">
-      <a href="index.html">Inicio</a>
-      <a href="detalles.html">Regresar</a>
-    </div>
-  </div>
-
-  <!-- Formulario de Pago -->
   <div class="container">
     <h1>Formulario de Pago</h1>
     <form id="payment-form">
+      
+      <!-- Campos del Formulario -->
       <div class="form-group">
         <label for="collaborators">Número de Colaboradores</label>
         <input type="number" id="collaborators" name="collaborators" min="1" required>
       </div>
+
       <div class="form-group">
         <label for="total">Monto Total</label>
         <input type="text" id="total" name="total" readonly>
       </div>
+
       <div class="form-group">
         <label for="reservation-date">Fecha Reservada</label>
         <input type="date" id="reservation-date" name="reservation-date" required>
       </div>
+
       <div class="form-group">
         <label for="start-date">Fecha de Inicio</label>
         <input type="date" id="start-date" name="start-date" required>
       </div>
+
       <div class="form-group">
         <label for="end-date">Fecha de Fin</label>
         <input type="date" id="end-date" name="end-date" required>
       </div>
+
+      <!-- Métodos de Pago -->
       <div class="form-group">
-        <label for="payment-method">Tipo de Pago</label>
-        <select id="payment-method" name="payment-method" required>
-          <option value="paypal">PayPal</option>
-          <option value="tarjeta">Tarjeta</option>
-          <option value="transferencia">Transferencia</option>
-        </select>
+        <label for="payment-method">Seleccionar Método de Pago</label>
+        <div class="payment-methods">
+          <div class="payment-method" id="paypal" onclick="showPaymentDetails('paypal')">
+            <i class="fab fa-paypal"></i>
+            <p>PayPal</p>
+          </div>
+          <div class="payment-method" id="card" onclick="showPaymentDetails('card')">
+            <i class="fas fa-credit-card"></i>
+            <p>Tarjeta</p>
+          </div>
+          <div class="payment-method" id="transfer" onclick="showPaymentDetails('transfer')">
+            <i class="fas fa-university"></i>
+            <p>Transferencia</p>
+          </div>
+        </div>
       </div>
-      <button type="submit" class="submit-button">Pagar</button>
+
+      <!-- Detalles del Pago -->
+      <div id="paypal-details" class="payment-details">
+        <label for="paypal-email">Correo de PayPal</label>
+        <input type="email" id="paypal-email" name="paypal-email" required>
+      </div>
+
+      <div id="card-details" class="payment-details">
+        <label for="card-number">Número de Tarjeta</label>
+        <input type="text" id="card-number" name="card-number" required>
+        <label for="card-expiry">Fecha de Expiración</label>
+        <input type="month" id="card-expiry" name="card-expiry" required>
+        <label for="card-cvc">CVC</label>
+        <input type="text" id="card-cvc" name="card-cvc" required>
+      </div>
+
+      <div id="transfer-details" class="payment-details">
+        <label for="transfer-account">Número de Cuenta</label>
+        <input type="text" id="transfer-account" name="transfer-account" required>
+      </div>
+
+      <button type="button" id="pay-button" class="submit-button" onclick="processPayment()">Pagar</button>
+
+      <!-- Animación de Procesando -->
+      <div class="loading" id="loading">
+        <p>Procesando el pago...</p>
+        <div class="spinner"></div>
+      </div>
+      
     </form>
+    
+    <!-- Confirmación -->
+    <div class="confirmation" id="confirmation">
+      <p>¡Pago realizado con éxito!</p>
+      <p>Tu código de confirmación es: <span id="confirmation-code"></span></p>
+    </div>
   </div>
+
   <div class="footer">
     <p>&copy; 2024 Nebula Coworking. Todos los derechos reservados.</p>
   </div>
+
+  <script>
+    function processPayment() {
+      // Mostrar la animación de carga
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('pay-button').classList.add('processing');
+      
+      // Simular un proceso de pago con un retraso
+      setTimeout(function() {
+        // Simular el código de confirmación
+        const confirmationCode = Math.floor(100000 + Math.random() * 900000); // Código aleatorio de 6 dígitos
+        
+        // Ocultar el formulario y mostrar la confirmación
+        document.getElementById('payment-form').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
+        document.getElementById('confirmation-code').textContent = confirmationCode;
+        
+        // Redirigir después de 3 segundos
+        setTimeout(function() {
+          window.location.href = '/confirmacion/' + confirmationCode; // Cambia esta URL a tu ruta de confirmación
+        }, 3000);
+      }, 3000); // Simula 3 segundos de procesamiento
+    }
+
+    function showPaymentDetails(method) {
+      // Ocultar todos los detalles de pago
+      document.querySelectorAll('.payment-details').forEach(function(detail) {
+        detail.classList.remove('active');
+      });
+
+      // Mostrar los detalles del método de pago seleccionado
+      document.getElementById(method + '-details').classList.add('active');
+    }
+  </script>
 </body>
 </html>
