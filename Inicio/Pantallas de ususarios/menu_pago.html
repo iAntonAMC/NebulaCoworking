@@ -265,10 +265,6 @@
         document.getElementById('confirmation').style.display = 'block';
         document.getElementById('confirmation-code').textContent = confirmationCode;
         
-        // Redirigir después de 3 segundos
-        setTimeout(function() {
-          window.location.href = '/confirmacion/' + confirmationCode; // Cambia esta URL a tu ruta de confirmación
-        }, 3000);
       }, 3000); // Simula 3 segundos de procesamiento
     }
 
